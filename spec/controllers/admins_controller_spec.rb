@@ -353,6 +353,23 @@ describe AdminsController, type: :controller do
       end
     end
 
+    context "POST #presentation" do
+      it "changes the default presentation on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_url = "example.com"
+
+        post :update_settings, params: { setting: "Default Presentation URL", value: fake_url, tab: "administration" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Presentation URL")
+
+        expect(feature[:value]).to eq(fake_url)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
+      end
+    end
+
     context "POST #coloring" do
       it "changes the primary on the page" do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)

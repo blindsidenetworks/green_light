@@ -42,6 +42,20 @@
       </div>
     </div>
   </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.presentation.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.presentation.info") %></label>
+        <div class="input-group">
+          <input id="presentation-url" type="text" class="form-control" value="<%= presentation_url %>">
+          <span class="input-group-append">
+            <button id="presentation-url" onclick="changePresentationURL('<%= admin_update_settings_path(setting: 'Default Presentation URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.presentation.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <% if show_log_dropdown %>
     <div class="row mb-2">

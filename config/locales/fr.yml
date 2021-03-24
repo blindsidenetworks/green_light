@@ -55,6 +55,12 @@ fr:
         placeholder: Politique de confidentialité URL ...
         title: Politique de confidentialité
         invalid: URL invalide
+      presentation:
+        change: Changer d'URL
+        info: Définir une présentation par défaut pour tous les salons, surcharge celle du serveur BigBlueButton
+        placeholder: URL de la présentation pas défaut ...
+        title: Présentation pas défaut
+        invalid: URL invalide
       cache:
         info: "Efface le cache distant, forçant ainsi la récupération des informations courantes"
         title: Vider le cache fournisseur
