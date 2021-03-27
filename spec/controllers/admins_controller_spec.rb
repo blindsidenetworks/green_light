@@ -23,6 +23,7 @@ describe AdminsController, type: :controller do
     allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
     controller.instance_variable_set(:@user_domain, "provider1")
 
+    @settings = Setting.find_or_create_by(provider: "provider1")
     @user = create(:user, provider: "provider1")
     @admin = create(:user, provider: "provider1")
     @admin.set_role :admin

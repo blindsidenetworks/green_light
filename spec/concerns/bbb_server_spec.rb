@@ -25,6 +25,7 @@ describe BbbServer do
   let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret", "0.8") }
 
   before do
+    @settings = Setting.find_or_create_by(provider: "provider1")
     @user = create(:user)
     @room = @user.main_room
   end
