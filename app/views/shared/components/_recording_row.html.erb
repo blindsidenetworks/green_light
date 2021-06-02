@@ -33,9 +33,29 @@
   <% if recording_thumbnails? %>
     <td class="overflow-hidden">
       <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
-      <% if p %>
-        <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
-          <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+      <% if p %> 
+        <% imagesel = if recording[:metadata][:imagesel]; recording[:metadata][:imagesel].split(/-/).collect{|x| x.to_i} else [0,1,2] end %>
+        <% if p[:preview][:images][:image] %>
+          <% imagesel.collect{|i| safe_recording_images(p[:preview][:images][:image])[i]}.each_with_index do |img, imgidxdsp| %>
+            <% if img %>
+              <div class="dropdown" style="position:unset;">
+                <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><%= image_tag(img[:content].strip, class: "thumbnail") %></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <% safe_recording_images(p[:preview][:images][:image]).each_with_index do |img,imgidx| %>
+                  <% imgselary = imagesel.dup %>
+                  <% imgselary[imgidxdsp] = imgidx %>
+                  <% activecls = if imagesel[imgidxdsp] == imgidx ; "dropdown-item active" else "dropdown-item" end %>
+                  <%= button_to update_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID], thumbnails: "#{imgselary.join("-")}"), class: "#{activecls}", "data-disable": "" do %>
+                  <%= image_tag(img[:content].strip, class: "thumbnail") %>
+                  <span class="small text-muted">
+                  <%= img[:alt].strip[0..20] %>
+                  </span>
+                  <% end %>
+                <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     </td>
