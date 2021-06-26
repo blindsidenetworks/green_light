@@ -93,10 +93,12 @@ Rails.application.routes.draw do
 
     # Account management.
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
+    get '/:user_uid/join_settings', to: 'users#join_settings', as: :join_settings
     get '/:user_uid/change_password', to: 'users#change_password', as: :change_password
     get '/:user_uid/delete_account', to: 'users#delete_account', as: :delete_account
     post '/:user_uid/edit', to: 'users#update', as: :update_user
     post '/:user_uid/change_password', to: 'users#update_password', as: :update_password
+    post '/:user_uid/update_join_settings', to: 'users#update_join_settings', as: :user_update_join_settings
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
 
     # All user recordings

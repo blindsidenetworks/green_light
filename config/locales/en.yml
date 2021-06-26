@@ -623,6 +623,7 @@ en:
       subtitle: Update your Account Info
       title: Account Info
       reset_password: Reset user password
+      join_settings: Settings
     delete:
       button: Yes, I would like to delete my account.
       disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
@@ -634,6 +635,11 @@ en:
       old: Old Password
       subtitle: Change your Password
       title: Password
+    user_settings:
+      userdata-bbb_skip_check_audio: Skip echo test
+      userdata-bbb_skip_video_preview: Skip video preview
+      userdata-bbb_auto_share_webcam: Auto share webcam
+      userdata-bbb_listen_only_mode: Enable listen only mode
     title: Profile
     search: Search
   signup:

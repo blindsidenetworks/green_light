@@ -1,0 +1,38 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<%= form_for @user, url: user_update_settings_path, method: :post do |f|  %>
+  <%= hidden_field_tag :setting, "join_settings" %>
+  <div class="form-group">
+    <div class="row">
+      <% @join_settings.each_with_index do |p, idx| %>
+        <div class="col-8">
+          <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <span class="ml-0 custom-switch-description"><%= t("settings.user_settings." + p ) %></span>
+            <% if @user.user_settings_as_hash.key?(p) %>
+              <%= f.check_box p, :checked => (@user.user_settings_as_hash[p] == "true"), class: "custom-switch-input", disabled: false %>
+            <% else %>
+              <%= f.check_box p, :checked => (@join_settings_defaults[idx] == "true"), class: "custom-switch-input", disabled: false %>
+            <% end %>
+            <span class="custom-switch-indicator float-right"></span>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-footer">
+    <%= f.submit t("update"), class: "btn btn-primary float-right" %>
+  </div>
+<% end %>

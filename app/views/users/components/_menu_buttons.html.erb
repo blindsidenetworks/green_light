@@ -17,6 +17,11 @@
   <%= link_to edit_user_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if action_name == "edit"}" do %>
     <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
   <% end %>
+  <% unless @join_settings.length <= 0 %>
+    <%= link_to join_settings_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "join_settings"}" do %>
+    <span class="icon mr-3"><em class="fas fa-cog"></em></span><%= t("settings.account.join_settings") %>
+    <% end %>
+  <% end %>
   <% if current_user.greenlight_account? %>
     <%= link_to change_password_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if action_name == "change_password"}" do %>
       <span class="icon mr-3"><i class="fas fa-key"></i></span><%= t("settings.password.title") %>

@@ -60,6 +60,10 @@ module Joiner
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
+        join_settings = Rails.configuration.join_settings_features.split(",")
+        current_user.user_settings.each do |v|
+          opts[v.name] = v.value if join_settings.include? v.name
+        end
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]

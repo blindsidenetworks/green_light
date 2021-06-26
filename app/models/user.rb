@@ -35,6 +35,10 @@ class User < ApplicationRecord
 
   belongs_to :role, required: false
 
+  has_many :user_settings
+
+  accepts_nested_attributes_for :user_settings
+
   validates :name, length: { maximum: 256 }, presence: true,
                    format: { without: %r{https?://}i }
   validates :provider, presence: true
@@ -214,6 +218,34 @@ class User < ApplicationRecord
   def create_home_room
     room = Room.create!(owner: self, name: I18n.t("home_room"))
     update_attributes(main_room: room)
+  end
+
+  def user_settings_as_hash
+    user_settings.map { |x| [x[:name], x[:value]] }.to_h
+  end
+
+  def update_all_user_settings(settings = {})
+    settings.each do |k, v|
+      if v == "0"
+        update_setting(k, "false")
+      else
+        update_setting(k, "true")
+      end
+    end
+  end
+
+  def update_setting(name, value)
+    # Dont update if it is not explicitly set to a value
+    return unless name.present? && value.present?
+
+    setting = user_settings.find_by(name: name)
+    # Setting already exists
+    if setting.present?
+      # Updates settings
+      setting.update_attributes(value: value)
+    else
+      user_settings.create(name: name, value: value)
+    end
   end
 
   private

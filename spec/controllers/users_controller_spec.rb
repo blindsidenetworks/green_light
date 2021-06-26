@@ -93,6 +93,25 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #join_settings" do
+    it "renders the join settings template" do
+      user = create(:user)
+
+      @request.session[:user_id] = user.id
+
+      get :join_settings, params: { user_uid: user.uid }
+
+      expect(response).to render_template(:join_settings)
+    end
+
+    it "redirect to root if user try to go to join setting page and isn't signed in" do
+      user = create(:user)
+
+      get :join_settings, params: { user_uid: user }
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
   describe "POST #create" do
     context "allow greenlight accounts" do
       before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
@@ -452,6 +471,68 @@ describe UsersController, type: :controller do
         expect(user.main_room).not_to be_nil
         expect(response).to redirect_to(admins_path)
       end
+    end
+  end
+
+  describe "POST #update_join_settings" do
+    it "properly updates user join settings" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+      allow(Rails.configuration).to receive(:join_settings_features).and_return("userdata-bbb_listen_only_mode")
+
+      expect(user.user_settings[0]).to eql(nil)
+
+      params = {
+        user: {
+          "userdata-bbb_listen_only_mode": 1,
+        }
+      }
+      post :update_join_settings, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.user_settings[0][:value]).to eql("true")
+      expect(flash[:success]).to be_present
+
+      params = {
+        user: {
+          "userdata-bbb_listen_only_mode": 0,
+        }
+      }
+      post :update_join_settings, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.user_settings[0][:value]).to eql("false")
+      expect(flash[:success]).to be_present
+    end
+    it "should not update unrecognize user settings" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      allow(Rails.configuration).to receive(:join_settings_features).and_return("")
+
+      settings_before = user.user_settings
+      params = {
+        user: {
+          "userdata-bbb_listen_only_mode": 1,
+        }
+      }
+      post :update_join_settings, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.user_settings.length).to eql(settings_before.length)
+      expect(user.user_settings[0]).to eql(nil)
+    end
+    it "redirect to root if user isn't signed in" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      params = {
+        user: {
+          "userdata-bbb_listen_only_mode": 1,
+        }
+      }
+      post :update_join_settings, params: params.merge!(user_uid: user)
+      expect(response).to redirect_to(root_path)
     end
   end
 
