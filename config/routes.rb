@@ -120,6 +120,9 @@ Rails.application.routes.draw do
   # Join a room by UID
   post '/room/join', to: 'rooms#join_specific_room', as: :join_room
 
+  # Generate a voiceBridge (phone code) for a room
+  get '/generate/voicebridge', to: 'rooms#generate_voice_bridge'
+
   # Extended room routes.
   scope '/:room_uid' do
     post '/', to: 'rooms#join'

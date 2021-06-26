@@ -75,6 +75,7 @@ module BbbServer
 
     create_options[:muteOnStart] = options[:mute_on_start] if options[:mute_on_start]
     create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
+    create_options[:voiceBridge] = room.voice_bridge if room.voice_bridge
 
     # Send the create request.
     begin

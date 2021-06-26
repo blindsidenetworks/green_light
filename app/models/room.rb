@@ -26,6 +26,7 @@ class Room < ApplicationRecord
   before_destroy :destroy_presentation
 
   validates :name, presence: true
+  validates :voice_bridge, presence: true, length: { is: 5 }, numericality: { only_integer: true }, uniqueness: true if Rails.configuration.room_features.include? "phone-call"
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :shared_access
@@ -96,6 +97,18 @@ class Room < ApplicationRecord
     inactive_rooms = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
 
     active_rooms + inactive_rooms
+  end
+
+  def self.generate_voice_bridge()
+    ## random numbers from a lower limit, up to (but not including) the upper limit.
+    voice_bridge = rand(10000...100000)
+    
+    if Room.where(voice_bridge: voice_bridge).exists?
+      return self.generate_voice_bridge()
+    else 
+      return voice_bridge
+    end
+   
   end
 
   private

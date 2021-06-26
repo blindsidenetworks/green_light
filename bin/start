@@ -19,6 +19,8 @@ else
   bundle exec rake db:schema:load
 fi
 
+bundle exec rake voice_bridge:init
+
 bundle exec rake assets:precompile
 
 exec bundle exec puma -C config/puma.rb

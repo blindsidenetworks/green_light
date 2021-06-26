@@ -43,6 +43,16 @@
               </span>
             </div>
 
+            <% if Rails.configuration.room_features.include? "phone-call" %>
+              <div class="input-icon mb-2">
+                <span onclick="generateVoiceBridge()" class="input-icon-addon allow-icon-click cursor-pointer">
+                  <i class="fas fa-dice"></i>
+                </span>
+                <%= f.label :voice_bridge, t("modal.create_room.voice_bridge_placeholder"), id: "create-room-voice-bridge", class: "form-control" %>
+                <%= f.hidden_field :voice_bridge %>
+              </div>
+            <% end %>
+
             <% if moderator_code_allowed? %>
               <div class="input-icon mb-2">
                 <span onclick="generateModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">

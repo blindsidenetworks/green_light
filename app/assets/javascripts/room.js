@@ -215,6 +215,11 @@ function showCreateRoom(target) {
   $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
   $("#room_recording").prop("checked", $("#room_recording").data("default"))
 
+  //if voice_bridge input exists, generate voice_bridge automatically
+  if ($("#create-room-voice-bridge").length != 0) {
+    generateVoiceBridge();
+  }
+
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
     $(this).show()
@@ -226,6 +231,8 @@ function showCreateRoom(target) {
     $(this).attr('style',"display:none !important")
     if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
   })
+
+
 }
 
 function showUpdateRoom(target) {
@@ -250,6 +257,8 @@ function showUpdateRoom(target) {
   updateCurrentSettings(settings_path)
 
   var accessCode = modal.closest(".room-block").data("room-access-code")
+  var voiceBridge = modal.closest(".room-block").data("room-voice-bridge")
+
 
   if(accessCode){
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
@@ -257,6 +266,14 @@ function showUpdateRoom(target) {
   } else {
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
     $("#room_access_code").val(null)
+  }
+
+  if (voiceBridge) {
+    $("#create-room-voice-bridge").text(getLocalizedString("modal.create_room.voice_bridge") + ": " + voiceBridge)
+    $("#room_voice_bridge").val(voiceBridge);
+  } else {
+    $("#create-room-voice-bridge").text(getLocalizedString("modal.create_room.voice_bridge_placeholder"))
+    $("#room_voice_bridge").val(null)
   }
 
   var moderatorAccessCode = modal.closest(".room-block").data("room-moderator-access-code")
@@ -429,4 +446,21 @@ function filterRooms() {
 function clearRoomSearch() {
   $('#room-search').val(''); 
   filterRooms()
+}
+
+
+function generateVoiceBridge() {
+  // Send ajax request for update
+  $.ajax({
+    url: "/b/generate/voicebridge",
+    type: "GET",
+    data: "",
+    success: function (data) {
+      $("#create-room-voice-bridge").text(getLocalizedString("modal.create_room.voice_bridge") + ": " + data)
+      $("#room_voice_bridge").val(data);
+    },
+    error: function (data) {
+      alert(getLocalizedString("errors.general.error"))
+    }
+  });
 }

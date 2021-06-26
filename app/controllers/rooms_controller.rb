@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
-  before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms]
+  before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms, :generate_voice_bridge]
   before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
   before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy, :preupload_presentation, :remove_presentation]
   before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
@@ -48,7 +48,8 @@ class RoomsController < ApplicationController
     # Create room
     @room = Room.new(name: room_params[:name],
                      access_code: room_params[:access_code],
-                     moderator_access_code: room_params[:moderator_access_code])
+                     moderator_access_code: room_params[:moderator_access_code],
+                     voice_bridge: room_params[:voice_bridge])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params)
 
@@ -213,6 +214,7 @@ class RoomsController < ApplicationController
         attributes[:room_settings] = room_settings_string
         attributes[:access_code] = options[:access_code]
         attributes[:moderator_access_code] = options[:moderator_access_code]
+        attributes[:voice_bridge] = options[:voice_bridge]
       end
 
       @room.update(attributes)
@@ -346,6 +348,15 @@ class RoomsController < ApplicationController
     redirect_to room_path(@room.uid)
   end
 
+
+  # GET /generate/voicebridge
+  def generate_voice_bridge
+    return redirect_to root_path unless current_user
+
+    voice_bridge = Room.generate_voice_bridge()
+    render plain: voice_bridge
+  end
+
   private
 
   def create_room_settings_string(options)
@@ -363,7 +374,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation, :moderator_access_code)
+      :recording, :presentation, :moderator_access_code, :voice_bridge)
   end
 
   # Find the room from the uid.
