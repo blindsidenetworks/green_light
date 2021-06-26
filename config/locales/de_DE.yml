@@ -34,8 +34,8 @@ de_DE:
       authentication:
         disabled: Deaktiviert
         enabled: Aktiviert
-        info: Nur authentifizierte Nutzer dürfen diesen Raum betreten
-        title: Betreten des Raums erfordert Authentifizierung
+        info: Nur authentifizierte Nutzer dürfen einem Raum betreten
+        title: Betreten eines Raums erfordert Authentifizierung
         user-info: "Sie müssen sich oben anmelden, um diesem Raum beitreten zu können."
       branding:
         change: Bild ändern
@@ -178,6 +178,9 @@ de_DE:
       moderator_codes:
         info: "Ermöglicht es Rauminitiatoren, optional einen Moderatoren-PIN zu generieren, der es anderen Teilnehmern ermöglicht, direkt als Moderator beizutreten."
         title: Moderatoren-Zugangscode
+      require_authentication:
+        title: Benutzeranmeldung erforderlich
+        info: Ermöglicht Rauminitiatoren festzulegen, ob sich Benutzer authentifizieren müssen, bevor sie einen bestimmten Raum betreten können. Standardmäßig ist keine Authentifizierung erforderlich.
       options:
         disabled: Deaktiviert
         enabled: Immer aktiviert
@@ -454,6 +457,7 @@ de_DE:
       start: Jeder Teilnehmer kann die Konferenz starten
       footer_text: Anpassungen des Raums können jederzeit vorgenommen werden.
       recording: Aufnahme des Raumes erlauben
+      require_authentication: Benutzeranmeldung erforderlich bevor der Raum betreten werden kann
     rename_room:
       name_placeholder: Neuen Raumnamen eingeben...
     share_access:

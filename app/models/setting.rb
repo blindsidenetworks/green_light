@@ -78,6 +78,8 @@ class Setting < ApplicationRecord
       room_config_setting("all-join-moderator")
     when "Room Configuration Recording"
       room_config_setting("recording")
+    when "Room Configuration Require Authentication To Join"
+      room_config_setting("require-authentication-to-join")
     end
   end
 

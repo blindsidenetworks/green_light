@@ -181,6 +181,9 @@ module Greenlight
     # Don't show option to generate moderator access codes
     config.moderator_codes_default = "disabled"
 
+    # Don't require authentication to join rooms by default
+    config.require_authentication_to_join = "false"
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end

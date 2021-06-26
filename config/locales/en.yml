@@ -178,6 +178,9 @@ en:
       moderator_codes:
         info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
         title: Moderator Access Code
+      require_authentication:
+        title: Require Authentication before joining
+        info: Allow room owners to require authentication before a user can join a specific room. By default authentication is not required.
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -455,6 +458,7 @@ en:
       start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
       recording: Allow room to be recorded
+      require_authentication: Require authentication before joining
     rename_room:
       name_placeholder: Enter a new room name...
     share_access:

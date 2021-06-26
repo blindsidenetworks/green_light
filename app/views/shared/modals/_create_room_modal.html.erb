@@ -98,6 +98,14 @@
                 <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
             </label>
             <% end %>
+            <% global_per_room_auth = room_configuration("Room Configuration Require Authentication To Join") %>
+            <% if !global_room_authentication_required? && global_per_room_auth != "disabled" && room_require_authentication_allowed?%>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+                <span class="custom-switch-description"><%= t("modal.room_settings.require_authentication")%></span>
+                <%= f.check_box :require_authentication_to_join, class: "not-running-only custom-switch-input", data: { default: false }, checked: false %>
+                <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
+              </label>
+            <% end %>
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>

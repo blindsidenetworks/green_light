@@ -180,6 +180,7 @@ class RoomsController < ApplicationController
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
     opts[:record] = record_meeting
+    opts[:require_authentication_to_join] = room_setting_with_config("requireAuthenticationToJoin")
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
@@ -353,6 +354,7 @@ class RoomsController < ApplicationController
       anyoneCanStart: options[:anyone_can_start] == "1",
       joinModerator: options[:all_join_moderator] == "1",
       recording: options[:recording] == "1",
+      requireAuthenticationToJoin: options[:require_authentication_to_join] == "1"
     }
 
     room_settings.to_json
@@ -361,7 +363,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation, :moderator_access_code)
+      :recording, :presentation, :moderator_access_code, :require_authentication_to_join)
   end
 
   # Find the room from the uid.
@@ -450,6 +452,7 @@ class RoomsController < ApplicationController
 
   # Gets the room setting based on the option set in the room configuration
   def room_setting_with_config(name)
+    @room_settings = JSON.parse(@room[:room_settings])
     config = case name
     when "muteOnStart"
       "Room Configuration Mute On Join"
@@ -461,6 +464,8 @@ class RoomsController < ApplicationController
       "Room Configuration Allow Any Start"
     when "recording"
       "Room Configuration Recording"
+    when "requireAuthenticationToJoin"
+      "Room Configuration Require Authentication To Join"
     end
 
     case @settings.get_value(config)

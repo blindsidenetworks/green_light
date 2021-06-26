@@ -24,7 +24,7 @@ module RoomsHelper
   end
 
   def room_authentication_required
-    @settings.get_value("Room Authentication") == "true" &&
+    (@settings.get_value("Room Authentication") == "true" || room_setting_with_config("requireAuthenticationToJoin") == true) &&
       current_user.nil?
   end
 

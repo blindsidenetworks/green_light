@@ -185,7 +185,7 @@ describe RoomsController, type: :controller do
       room_params = { name: name, mute_on_join: "1",
         require_moderator_approval: "1", anyone_can_start: "1", all_join_moderator: "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false,\"requireAuthenticationToJoin\":false}"
 
       post :create, params: { room: room_params }
 
@@ -669,7 +669,7 @@ describe RoomsController, type: :controller do
 
       room_params = { mute_on_join: "1", name: @secondary_room.name, recording: "1" }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true,\"requireAuthenticationToJoin\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
@@ -692,7 +692,7 @@ describe RoomsController, type: :controller do
 
       room_params = { mute_on_join: "1", name: @secondary_room.name }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":false}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":false,\"requireAuthenticationToJoin\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }

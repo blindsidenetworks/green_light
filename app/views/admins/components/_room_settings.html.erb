@@ -124,7 +124,7 @@
       </div>
     </div>
   <% end %>
-  <div class="row">
+  <div class="mb-6 row">
     <div class="col-12">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.room_configuration.moderator_codes.title") %></label>
@@ -145,5 +145,31 @@
       </div>
     </div>
   </div>
+  <% if !global_room_authentication_required? %>
+    <div class="row">
+      <div class="col-12">
+      <div class="form-group">
+          <label class="form-label"><%= t("modal.room_settings.require_authentication") %></label>
+          <label class="form-label text-muted"><%= t("administrator.room_configuration.require_authentication.info") %></label>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= room_configuration_string("Room Configuration Require Authentication To Join") %>
+            </button>
+            <div class="dropdown-menu">
+              <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Require Authentication To Join", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.room_configuration.options.enabled") %>
+              <% end %>
+              <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Require Authentication To Join", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.room_configuration.options.optional") %>
+              <% end %>
+              <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Require Authentication To Join", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.room_configuration.options.disabled") %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
 </div>

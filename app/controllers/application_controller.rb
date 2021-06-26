@@ -192,6 +192,18 @@ class ApplicationController < ActionController::Base
   end
   helper_method :moderator_code_allowed?
 
+  # Shows global setting "authentication is required to access rooms"
+  def global_room_authentication_required?
+    @settings.get_value("Room Authentication") == "true"
+  end
+  helper_method :global_room_authentication_required?
+
+  # Indicates whether users are allowed to require authentication to join rooms
+  def room_require_authentication_allowed?
+    @settings.get_value("Room Configuration Require Authentication To Join") == "optional"
+  end
+  helper_method :room_require_authentication_allowed?
+  
   # Returns a list of allowed file types
   def allowed_file_types
     Rails.configuration.allowed_file_types
