@@ -23,6 +23,7 @@ describe AdminsController, type: :controller do
     allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
     controller.instance_variable_set(:@user_domain, "provider1")
 
+    @settings = Setting.find_or_create_by(provider: "provider1")
     @user = create(:user, provider: "provider1")
     @admin = create(:user, provider: "provider1")
     @admin.set_role :admin
@@ -347,6 +348,23 @@ describe AdminsController, type: :controller do
         post :update_settings, params: { setting: "Privacy Policy URL", value: fake_url, tab: "administration" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Privacy Policy URL")
+
+        expect(feature[:value]).to eq(fake_url)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
+      end
+    end
+
+    context "POST #presentation" do
+      it "changes the default presentation on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_url = "example.com"
+
+        post :update_settings, params: { setting: "Default Presentation URL", value: fake_url, tab: "administration" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Presentation URL")
 
         expect(feature[:value]).to eq(fake_url)
         expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))

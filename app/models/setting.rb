@@ -52,6 +52,8 @@ class Setting < ApplicationRecord
       nil
     when "Privacy Policy URL"
       nil
+    when "Default Presentation URL"
+      nil
     when "Primary Color"
       Rails.configuration.primary_color_default
     when "Registration Method"

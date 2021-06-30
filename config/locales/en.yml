@@ -55,6 +55,12 @@ en:
         placeholder: Privacy Policy URL...
         title: Privacy Policy
         invalid: Invalid URL
+      presentation:
+        change: Change URL
+        info: Change the Default Presentation Link that is used on BigBlueButton server
+        placeholder: Default Presentation URL...
+        title: Default Presentation
+        invalid: Invalid URL
       cache:
         info: Clears the stored provider cache which forces a new request for the updated info
         title: Clear Provider Cache

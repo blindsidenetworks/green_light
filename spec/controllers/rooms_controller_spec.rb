@@ -248,6 +248,7 @@ describe RoomsController, type: :controller do
 
   describe "POST #join" do
     before do
+      @settings = Setting.find_or_create_by(provider: "provider1")
       @user = create(:user)
       @owner = create(:user)
       @room = @owner.main_room
@@ -592,6 +593,7 @@ describe RoomsController, type: :controller do
 
   describe "POST #start" do
     before do
+      @settings = Setting.find_or_create_by(provider: "provider1")
       @user = create(:user)
       @other_room = create(:room)
 

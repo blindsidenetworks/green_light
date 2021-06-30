@@ -32,6 +32,11 @@ module ThemingHelper
     @settings.get_value("Privacy Policy URL") || ""
   end
 
+  # Returns the default presentation URL based on user's provider
+  def presentation_url
+    @settings.get_value("Default Presentation URL") || ""
+  end
+
   # Returns the primary color based on user's provider
   def user_color
     @settings.get_value("Primary Color") || Rails.configuration.primary_color_default
