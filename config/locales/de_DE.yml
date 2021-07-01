@@ -573,6 +573,8 @@ de_DE:
     invited: Sie wurden zur Teilnahme eingeladen
     recording_present: "Ich bin damit einverstanden, dass diese Sitzung aufgezeichnet wird. Die Aufzeichnung kann Sprach- und Videoaufnahmen von mir beinhalten. Bitte beachten Sie, dass die Aufnahme im Anschluss geteilt werden kann."
     invite_participants: Teilnehmer einladen
+    invite_participants_web: über Webbrowser teilnehmen
+    invite_participants_tel: über Telefon teilnehmen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
     login: Betreten

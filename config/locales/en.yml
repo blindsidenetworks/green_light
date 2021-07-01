@@ -574,6 +574,8 @@ en:
     invited: You have been invited to join
     recording_present: I acknowledge that this session is going to be recorded. This may include my voice and video if enabled.
     invite_participants: Invite Participants
+    invite_participants_web: join with browser
+    invite_participants_tel:  join with telephone
     join: Join
     last_session: Last session on %{session}
     login: Enter

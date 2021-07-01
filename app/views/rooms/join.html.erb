@@ -60,4 +60,16 @@
   <% else %>
     <%= render "rooms/components/enter_access_code_form", access_code_type: 'standard_access' %>
   <% end %>
+  <% if Rails.configuration.voice_bridge_phone_number %>
+    <div class="d-flex flex-row justify-content-end mt-2">
+      <div>
+        <label class="form-label"><i class="fas fa-phone mr-1 ml-1"></i><%= t("room.invite_participants_tel") %></label>
+        <%= Rails.configuration.voice_bridge_phone_number %>
+      </div>
+      <div class="ml-3">
+          <label class="form-label">PIN</label>
+          <%= @room.phone_pin %>
+      </div>
+    </div>
+  <% end %>
 <% end %>

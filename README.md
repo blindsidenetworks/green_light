@@ -12,6 +12,17 @@ Greenlight is a simple front-end interface for your BigBlueButton server. At its
   * Invite others to your room using a simple URL.
   * View recordings and share them with others.
 
+**This greenlight has the same features as `release-2.8.2.2` of upstream Greenlight. Feel free to contribute.**
+
+## extra Features additional to upstream Greenlight
+  * SIP support - with static PIN for each room
+
+## enable SIP support
+1. set the `VOICE_BRIDGE_PHONE_NUMBER` environment variable to your SIP telephone number. This value will be displayed in each room.
+2. setup the BBB SIP Integration, if you use Scalelite, you can follow the instructions from https://github.com/MBcom/bbb-clustersip.git to setup a central SIP gateway for your BBB cluster
+3. Greenlight will generate automatically a static conference PIN for each room and shows it next to the telephone number
+![image](https://user-images.githubusercontent.com/27956078/114266534-1bf5d680-99f7-11eb-8fcb-d28435317c8a.png)
+
 Interested? Try Greenlight out on our [demo server](https://demo.bigbluebutton.org/gl)!
 
 Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/greenlight/gl-install.html).

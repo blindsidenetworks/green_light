@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bbb_api'
+require 'sha3'
 
 class Room < ApplicationRecord
   include Deleteable
@@ -83,6 +84,10 @@ class Room < ApplicationRecord
   # Notify waiting users that a meeting has started.
   def notify_waiting
     ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")
+  end
+
+  def phone_pin
+    (SHA3::Digest.hexdigest(:sha224, uid).unpack("n").first % 100000).to_s.rjust(5, "1")
   end
 
   # Return table with the running rooms first

@@ -180,6 +180,7 @@ class RoomsController < ApplicationController
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
     opts[:record] = record_meeting
+    opts[:voice_bridge] = @room.phone_pin
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)

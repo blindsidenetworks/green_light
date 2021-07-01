@@ -178,6 +178,8 @@ module Greenlight
     # Don't allow users to preupload presentations by default
     config.preupload_presentation_default = "false"
 
+    # Phone number
+    config.voice_bridge_phone_number = ENV['VOICE_BRIDGE_PHONE_NUMBER']
     # Don't show option to generate moderator access codes
     config.moderator_codes_default = "disabled"
 

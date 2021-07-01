@@ -77,3 +77,5 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0'
   gem 'web-console', '~> 3.7'
 end
+
+gem 'sha3', '~> 1.0', '>= 1.0.1'
