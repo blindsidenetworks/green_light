@@ -60,6 +60,7 @@ module Joiner
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
+        opts[:avatarURL] = current_user.image
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
