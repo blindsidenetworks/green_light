@@ -8,10 +8,15 @@ if [ "$RAILS_ENV" = "production" ] && [ "$DB_ADAPTER" = "postgresql" ]; then
   done
 fi
 
-db_create="$(RAILS_ENV=$RAILS_ENV bundle exec rake db:create 2>&1)"
-echo $db_create
+db_version="$(RAILS_ENV=$RAILS_ENV bundle exec rake db:version 2>&1)"
+echo $db_version
 
-if [[ $db_create == *"already exists"* ]]; then
+if [ -z "$DB_SKIP_CREATION" ] || [ "$DB_SKIP_CREATION" == false ]; then
+  db_create="$(RAILS_ENV=$RAILS_ENV bundle exec rake db:create 2>&1)"
+  echo $db_create
+fi
+
+if [[ "$db_version" != "Current version: 0" ]] || [[ $db_create == *"already exists"* ]]; then
   echo ">>> Database migration"
   bundle exec rake db:migrate
 else
