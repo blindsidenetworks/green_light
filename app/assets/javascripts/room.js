@@ -50,6 +50,36 @@ $(document).on('turbolinks:load', function(){
       showDeleteRoom(this)
     })
 
+    // For keyboard users to be able to generate access code
+    $("#generate-room-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          generateAccessCode();
+      }
+    })
+
+    // For keyboard users to be able to reset access code
+    $("#reset-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          ResetAccessCode();
+      }
+    })
+
+    // For keyboard users to be able to generate access code
+    // for moderator
+    $("#generate-moderator-room-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          generateModeratorAccessCode();
+      }
+    })
+
+    // For keyboard users to be able to reset access code
+    // for moderator
+    $("#reset-moderator-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          ResetModeratorAccessCode();
+      }
+    })
+
     $('.selectpicker').selectpicker({
       liveSearchPlaceholder: getLocalizedString('javascript.search.start')
     });

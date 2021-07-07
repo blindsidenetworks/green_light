@@ -401,7 +401,9 @@ en:
       access_code: Access Code
       moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
+      reset_access_code: Reset the optional room access code
       moderator_access_code_placeholder: Generate an optional code for moderators
+      reset_moderator_access_code: Reset the optional code for moderators
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
