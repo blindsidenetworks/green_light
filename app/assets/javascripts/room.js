@@ -127,7 +127,8 @@ $(document).on('turbolinks:load', function(){
 
         let spanItemAvatar = document.createElement("span"),
             spanItemName = document.createElement("span"),
-            spanItemUser = document.createElement("span");
+            spanItemUser = document.createElement("span"),
+            buttonItem = document.createElement("button");
         spanItemAvatar.setAttribute('class', 'avatar float-left mr-2');
         spanItemAvatar.innerText = option.text().charAt(0);
         spanItemName.setAttribute('class', 'shared-user');
@@ -136,7 +137,14 @@ $(document).on('turbolinks:load', function(){
         spanItemUser.innerText = option.data('subtext');
         spanItemName.append(spanItemUser);
 
-        listItem.innerHTML = "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        // for keyboard user to access remove user
+        buttonItem.setAttribute('aria-label', getLocalizedString("modal.share_access.remove_user").replace("%{name}", option.text()));
+        buttonItem.setAttribute('class', 'btn text-primary float-right shared-user cursor-pointer');
+        buttonItem.setAttribute('onclick', 'removeSharedUser(this)');
+        buttonItem.innerHTML = "<i class='fas fa-times'></i>";
+
+        listItem.append(buttonItem);
+
         listItem.prepend(spanItemName);
         listItem.prepend(spanItemAvatar);
 
@@ -344,7 +352,9 @@ function displaySharedUsers(path) {
         user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
       }
       user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
-      user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+      user_list_html += "<button aria-label='"
+      user_list_html += getLocalizedString("modal.share_access.remove_user").replace("%{name}", user.name) 
+      user_list_html += "' class='btn text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></button>"
       user_list_html += "</li>"
     })
 

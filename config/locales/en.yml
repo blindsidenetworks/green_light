@@ -465,6 +465,7 @@ en:
       save: Save Changes
       cancel_changes: Cancel Changes
       select: Select User
+      remove_user: remove %{name} from the list
     merge_user:
       cancel: Cancel
       from: Account to be Merged
