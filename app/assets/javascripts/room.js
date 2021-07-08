@@ -21,13 +21,64 @@ $(document).on('turbolinks:load', function(){
 
   // highlight current room
   $('.room-block').removeClass('current');
-  $('a[href="' + window.location.pathname + '"] .room-block').addClass('current');
+  $('div[data-path="' + window.location.pathname + '"] .room-block').addClass('current');
 
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
+    })
+
+    // action for going to room
+    function goToRoom(node) {
+      var url = $( node ).data('path');
+      window.location = url;
+    }
+
+    $(".room-block-link").click(function(){
+      goToRoom(this)
+    })
+
+    // For keyboard users to be able to navigate through room
+    // and create a new room
+    $("#create-room-block, .room-block-link").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          this.click();
+      }
+    })
+
+    // so that it will not trigger the parent action when clicking the settings
+    $("#room_block_container .item-action a").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+        event.stopPropagation();
+      }
+    })
+
+    // for mouse action so that click the settings will not trigger go to room
+    $("#room_block_container .item-action").find("*").hover(function(){//On mouse enter
+      var parent = $(this).closest('.room-block-link');
+      parent.unbind('click');//Disable the parent
+    }, function(){//On mouse leave
+        var parent = $(this).closest('.room-block-link');
+        $(".room_block_btn").click(function(){
+          goToRoom(this);
+        })        
+        parent.blur();//Unfocus the element
+    })
+
+    // for keyboard action so that click the settings will not trigger go to room
+    $("#room_block_container .item-action").find("*").focus(function(event){//On mouse enter
+      var parent = $(this).closest('.room-block-link');
+      parent.unbind('click');//Disable the parent
+    })
+
+    $("#room_block_container .item-action").find("*").blur(function(){
+      if ($("#room_block_container .show")[0]) {
+        $(".room_block_btn").click(function(){
+          goToRoom(this);
+        })
+      }
     })
 
     checkIfAutoJoin()

@@ -105,9 +105,9 @@
       <% if current_user.role.get_permission("can_create_rooms") %>
         <% current_user.ordered_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
-            <%= link_to room do %>
+            <div data-path="/<%= room.uid %>" aria-label="<%= room.name %>" tabindex="0" class="room-block-link">
               <%= render "rooms/components/room_block", room: room %>
-            <% end %>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -115,9 +115,9 @@
       <% if shared_access_allowed %>
         <% current_user.shared_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
-            <%= link_to room do %>
+            <div data-path="/<%= room.uid %>" aria-label="<%= room.name %>" tabindex="0" class="room-block-link">
               <%= render "rooms/components/shared_room_block", room: room %>
-            <% end %>
+            </div>
           </div>
         <% end %>
       <% end %>
