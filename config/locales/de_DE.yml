@@ -380,7 +380,7 @@ de_DE:
         more-info: "Um sich Ihre neuen Rechte anzusehen, besuchen Sie %{url}."
         subtitle: "%{role} Rechte erteilt"
       verify_email:
-        welcome: "Willkommen zu Ihrem persönlichem Bereich, %{name}!"
+        welcome: "Willkommen zu Ihrem persönlichen Bereich, %{name}!"
         success: "Durch den Einsatz von %{bigbluebutton}, können Sie Ihre eigenen Räume erstellen, dort Konferenzen durchführen und mit anderen zusammenarbeiten."
         username: "Ihr Nutzername ist %{email}."
         verify: "Zur Kontoverifikation, klicken Sie bitte auf den untenstehenden Link."
