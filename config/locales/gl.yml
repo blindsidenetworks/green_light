@@ -145,6 +145,7 @@ gl:
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
+      can_launch_recording: Permitir os usuarios con este rol para gravar estas reunións
       delete: Eliminar o rol
       invalid_create: Produciuse un problema ao crear un novo rol. Comprobe os valores dos roles e ténteo de novo
       invalid_order: Produciuse un problema ao actualizar a prioridade do rol. Comprobe os valores dos roles e ténteo de novo
@@ -497,9 +498,11 @@ gl:
     all_recordings: Todas as gravacións
     email: " Enviar correo coa gravación"
     error: "Produciuse un erro ao recuperar %{count} gravación(s)"
-    no_recordings: "Esta sala non ten gravacións %{inject}."
+    no_public_recordings: Esta sala non ten gravacións públicas.
+    no_recordings: Esta sala non ten gravacións.
     no_user_recordings: Non ten gravacións.
-    no_matched_recordings: "Non hai  gravacións %{inject} que coincidan coa súa busca."
+    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa túa busca.
+    no_matched_recordings: Non hai gravacións que coincidan coa túa busca.
     recorded_on: "Gravada o %{date}"
     table:
       name: Nome
@@ -643,6 +646,9 @@ gl:
     title: Termos e condicións
   test_install: >
     Esta instalación está a usar un servidor para probas preconfigurado. Debe substituílo polo seu propio servidor. Para obter máis detalles, consulte %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar
